@@ -88,3 +88,12 @@ ROBOTSTXT_OBEY = True
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+ITEM_PIPELINES = {
+    'HousesForRent_Crawlers.pipelines.MySQLStorePipeline': 300,
+}
+
+REACTOR_THREADPOOL_MAXSIZE = 20
+COOKIES_ENABLED = False
+LOG_FILE = 'logs.txt'
+LOG_LEVEL = 'ERROR'
