@@ -97,7 +97,7 @@ class OlxCrawlerSpider(scrapy.Spider):
         for i in range(0,len(a)-1):
             dictAttributes[a[i].encode('utf-8')] = removeWhiteSpaces(b[i]).encode('utf-8')
         surface = removeWhiteSpaces(response.xpath(const.OLX_SURFACE_NEW_PATH).extract_first())[:-2]
-        dictAttributes['surface'] = surface.encode('utf-8');
+        
         singleOffert['title'] = response.css('title::text').extract_first().encode('utf-8')[:-10]
         singleOffert['url'] = response.url.encode('utf-8')
         singleOffert['city'] = location[0].encode('utf-8')
@@ -110,8 +110,12 @@ class OlxCrawlerSpider(scrapy.Spider):
         singleOffert['description'] = removeWhiteSpaces(addedDescription).encode('utf-8')
         singleOffert['photos'] = photos
         singleOffert['price'] = price_exactly.encode('utf-8')
-        singleOffert['attributes'] = dictAttributes
-       
+        singleOffert['surface'] = surface.encode('utf-8')
+        singleOffert['floor'] = dictAttributes.get('Poziom','')
+        singleOffert['numberOfRooms'] = dictAttributes['Powierzchnia']
+        singleOffert['propertyType'] = dictAttributes['Rodzaj zabudowy']
+        singleOffert['furnitured'] = dictAttributes['Umeblowane']
+        singleOffert['advertsFrom'] = dictAttributes['Oferta od']
         return singleOffert
 
     
